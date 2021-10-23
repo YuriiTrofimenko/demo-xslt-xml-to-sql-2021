@@ -6,9 +6,10 @@
         INSERT INTO [dbo].[Country_Borders2] VALUES
         <xsl:for-each select="countries/element">
             <xsl:variable name="currentCountryAlpha3Code" select="alpha3Code"/>
+            <xsl:variable name="isLastCountry" select="position() = last()"/>
             <xsl:for-each select="borders/element">
                 ('<xsl:value-of select="$currentCountryAlpha3Code"/>',
-                '<xsl:value-of select="."/>'),
+                '<xsl:value-of select="."/>')<xsl:if test="not((position() = last()) and $isLastCountry)">,</xsl:if>
             </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
